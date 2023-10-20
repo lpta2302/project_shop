@@ -127,3 +127,76 @@ public class ThongBao{
         return $"Thông báo số: {IdThongBao}\nTiêu đề: {TieuDe}\nNội dung:\n{NoiDung}\n{"".PadRight(50,'-')}";
     }
 }
+public class Calender
+{
+    int[,] calender = new int[5,7];
+    public Calender(){
+        makeCalender();
+    }
+    private int dayToInt(DateTime time){
+        //hàm này để trả về dạng số của dayofweek
+            switch (time.DayOfWeek)
+            {
+                case DayOfWeek.Monday:
+                return 0;
+                case DayOfWeek.Tuesday:
+                return 1;
+                case DayOfWeek.Wednesday:
+                return 2;
+                case DayOfWeek.Thursday:
+                return 3;
+                case DayOfWeek.Friday:
+                return 4;
+                case DayOfWeek.Saturday:
+                return 5;
+                case DayOfWeek.Sunday:
+                return 6;
+            }
+            return -1;
+        }
+        public void printCalender(){
+            Console.SetCursorPosition(47,0);
+            //in ra ngày hiện tại
+            Console.WriteLine(DateTime.Now.ToLongDateString());
+            Console.SetCursorPosition(47,1);
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            //in lịch
+            Console.WriteLine("T2  T3  T4  T5  T6  T7  CN  ");
+            Console.ForegroundColor = ConsoleColor.Black;
+            for(int i=0;i<calender.GetLength(0);i++){
+                Console.SetCursorPosition(47,2+i);
+                for(int j=0;j<calender.GetLength(1);j++){
+                    Console.Write("{0,2}  ",(calender[i,j]==0)?"  ":calender[i,j]);
+                }
+                Console.WriteLine();
+            }
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+            private void makeCalender(){
+                //hàm tạo lịch
+                //lấy tháng hiện tại
+                int thisMonth = DateTime.Now.Month;
+                //lấy ngày đầu tiên trong tháng
+                DateTime day = new DateTime(DateTime.Now.Year,thisMonth,1);
+                int firstDay = dayToInt(day);
+                //tạo dòng ngày đầu tiên
+                for(int i=firstDay;i<calender.GetLength(1);i++){
+                    //gán ngày vào mảng
+                    calender[0,i] = day.Day;
+                    //tăng ngày lên
+                    day = day.AddDays(1);
+                }
+                //tạo những ngày còn lại
+                for(int i=1;i<calender.GetLength(0);i++){
+                    for(int j=0;j<calender.GetLength(1);j++){
+                    calender[i,j] = day.Day;
+                    day = day.AddDays(1);
+                    //nếu hết tháng thì dừng
+                    if(day.Month > thisMonth)return;
+                    }
+                }
+            }
+        
+}
