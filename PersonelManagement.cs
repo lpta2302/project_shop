@@ -56,7 +56,7 @@ namespace PersonelManage
             Console.WriteLine("0.Quay lại\n"+
                                 " ------------------------------------------------------- \n" +
                                 "| 1. Nhập tên nhân viên:{0,-32}|\n" +
-                                "| 2. User/Admin (nhập 1/0):{1,-29}|\n" +
+                                "| 2. Admin/Member (nhập 1/0):{1,-29}|\n" +
                                 "| 3. Xác nhận                                           |\n" +
                                 " ------------------------------------------------------- ",
                                 tenNV,(typeUser==-1)?"":typeUser);
