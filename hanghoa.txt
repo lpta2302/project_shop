@@ -1,33 +1,42 @@
 1
-Iphone14
-135
+Iphone 14 Mini
+112
 2
-Iphone15
-163
+Iphone 15 Pro
+0
 3
-OPPO Reno10
-113
+Samsung Watch 2
+120
 4
-PocoF3
+Poco F3
 999999
 5
-Nokia 1280
-173
+Galaxy Note 20 Ultra
+220
 6
-Macbook Pro M1
-157
+Macbook Air M2
+40
 7
-Ipad M1
-0
+Iphone 12 Pro Max
+111
 8
-Apple Watch
+Sony A8400
 157
 9
-Samsung Galaxy S23
-192
-10
-Xiaomi Note11
-882
+LG G8 
+200
 11
-Iphone 15 Promax
-22000
+Xiaomi 11 Pro
+440 
+12
+Macbook Pro M2
+820
+13
+Galaxy Watch 4
+178
+14
+Samsung Neo QLED 8K
+60
+15
+Apple Watch Series 8
+213
