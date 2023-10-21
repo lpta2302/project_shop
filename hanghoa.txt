@@ -1,0 +1,33 @@
+1
+Iphone14
+135
+2
+Iphone15
+163
+3
+OPPO Reno10
+113
+4
+PocoF3
+999999
+5
+Nokia 1280
+173
+6
+Macbook Pro M1
+157
+7
+Iphone15
+0
+8
+Apple Watch
+157
+9
+Samsung Galaxy S23
+192
+10
+Xiaomi Note11
+882
+11
+Iphone 15 Promax
+22000

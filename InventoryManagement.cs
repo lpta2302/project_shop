@@ -63,12 +63,9 @@ class ManageInventory
     {
         listHangHoa.Sort((nv1, nv2) =>
         {
-            // Tìm kiếm dấu cách cuối cùng trong tên
-            int spaceIndex1 = nv1.TenHang.LastIndexOf(' ');
-            int spaceIndex2 = nv2.TenHang.LastIndexOf(' ');
-            //substring lấy ra chuỗi sau dấu cách cuối cùng, lúc này là tên, to upper để viết in lên
+            //to upper để viết in lên
             //compare to để so sánh
-            return nv1.TenHang.Substring(spaceIndex1 + 1).ToUpper().CompareTo(nv2.TenHang.Substring(spaceIndex2 + 1).ToUpper());
+            return nv1.TenHang.ToUpper().CompareTo(nv2.TenHang.ToUpper());
         });
     }
     public void SapXepTheoMaHang()
