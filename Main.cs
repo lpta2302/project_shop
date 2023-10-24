@@ -181,7 +181,10 @@ namespace DoAnCuoiKy{
                                         Console.WriteLine("Không có nhân viên nào tên: " + tenNV);
                                         Console.WriteLine("Nhấn phím bất kỳ để tiếp tục");
                                     }
-                                Console.ReadKey(true);
+                                    Console.ReadKey(true);
+                                    break;
+                                case ConsoleKey.D2:
+                                    managePersonel.TimNhanVienTheoNamSinh();
                                 break;
                             }
                         }

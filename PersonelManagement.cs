@@ -42,7 +42,7 @@ namespace PersonelManage
             userName = name.ToLower() + random.Next(100,999);
             return userName;
         }
-        private string CreatePassword(string pass)
+        private string CreatePassword()
         {
             string passwordstr;
             int passwordint;
@@ -86,7 +86,7 @@ namespace PersonelManage
                             NhanVien nhanVien = new NhanVien();
                             nhanVien.IdNhanVien = GenerateID();
                             nhanVien.UserName = CreateUserName(tennv);
-                            nhanVien.PassWord = CreatePassword(nhanVien.PassWord);
+                            nhanVien.PassWord = CreatePassword();
                             nhanVien.TypeUser = typeUser;
                             nhanVien.TenNhanVien = tennv;
                             Console.Clear();
@@ -108,7 +108,8 @@ namespace PersonelManage
             Console.Clear();
             Console.WriteLine("0. Quay lại");
             Console.Write(" ----------------------------------------------------- \n" +
-                          "| 1. Bắt đầu tìm nhân viên                            |\n" +
+                          "| 1. Tìm kiếm theo tên                                |\n" +
+                          "| 2. Tìm kiếm theo năm sinh                           |\n" +
                           " ----------------------------------------------------- \n");
         }
         public List<NhanVien> TimTen(string keyword)
@@ -135,6 +136,9 @@ namespace PersonelManage
                           "| 1. Sắp xếp theo tên nhân viên                       |\n" +
                           "| 2. Sắp xếp theo Id nhân viên                        |\n" +
                           "| 3. Sắp xếp theo giới tính                           |\n" +
+                          "| 4. Lọc theo TypeUser                                |\n" +
+                          "| 5. Lọc theo nam/nữ                                  |\n" +
+                          "| 6. Thống kê nam nữ, typeuser                        |\n" +
                           " ----------------------------------------------------- \n");
         }
         public void ShowNhanVien(List<NhanVien> ListNhanVien)
@@ -175,7 +179,7 @@ namespace PersonelManage
             }
             Console.WriteLine(" -------------------------------------------------------------------------------------");
         }
-        public void SapXepTen()
+        public void SapXepTen(List<NhanVien> listNhanVien)
         {
             listNhanVien.Sort((nv1, nv2) =>
             {
@@ -185,7 +189,7 @@ namespace PersonelManage
                 return nv1.TenNhanVien.Substring(spaceIndex1 + 1).ToUpper().CompareTo(nv2.TenNhanVien.Substring(spaceIndex2 + 1).ToUpper());
             });
         }
-        public void SapXepID()
+        public void SapXepID(List<NhanVien> listNhanVien)
         {
             listNhanVien.Sort
               (
@@ -194,8 +198,7 @@ namespace PersonelManage
                   return nv1.IdNhanVien.CompareTo(nv2.IdNhanVien);
               });
         }
-        public void SapXepGioiTinh()
-        {
+        public void SapXepGioiTinh(List<NhanVien> listNhanVien){
             listNhanVien.Sort
                 (
                 (nv1,nv2)=>
@@ -204,27 +207,91 @@ namespace PersonelManage
                 }
                 );
         }
+        public void LocTheoGioiTinh(List<NhanVien> ListNhanVien, int dk)
+        {
+            string[] gioitinh = { "Nữ", "Nam" };
+            string[] typeuser = { "member","admin" };
+            Console.WriteLine("BẢNG THÔNG TIN NHÂN VIÊN");
+            // Hiển thị tiêu đề cột 
+            Console.WriteLine(" --------------------------------------------------------------------------------------------------------------- \n" +
+                              "| Id |        Tên NV        | Sex |  BirthDay  |     CCCD     |     SDT     |  Type   |  Username  |  Password  |\n" +
+                              " --------------------------------------------------------------------------------------------------------------- ");
+            // hien thi danh sach sinh vien       
+            foreach (NhanVien nhanvien in ListNhanVien)
+            {
+                if(nhanvien.GioiTinh == dk)
+                Console.WriteLine("| {0, -3}| {1, -21}| {2, -4}| {3, -11}| {4,-13}| {5, -12}| {6,-8}| {7,-11}| {8,-11}|",
+                nhanvien.IdNhanVien, nhanvien.TenNhanVien, gioitinh[nhanvien.GioiTinh],
+                nhanvien.BirthDay, nhanvien.CCCD,nhanvien.SDT,
+                typeuser[nhanvien.TypeUser],nhanvien.UserName,nhanvien.PassWord);
+            }
+            Console.WriteLine(" ---------------------------------------------------------------------------------------------------------------- ");
+        }
+        public void LocTheoTypeUser(List<NhanVien> ListNhanVien, int dk)
+        {
+            string[] gioitinh = { "Nữ", "Nam" };
+            string[] typeuser = { "member","admin" };
+            Console.WriteLine("BẢNG THÔNG TIN NHÂN VIÊN");
+            // Hiển thị tiêu đề cột 
+            Console.WriteLine(" --------------------------------------------------------------------------------------------------------------- \n" +
+                              "| Id |        Tên NV        | Sex |  BirthDay  |     CCCD     |     SDT     |  Type   |  Username  |  Password  |\n" +
+                              " --------------------------------------------------------------------------------------------------------------- ");
+            // hien thi danh sach sinh vien       
+            foreach (NhanVien nhanvien in ListNhanVien)
+            {
+                if(nhanvien.TypeUser == dk)
+                Console.WriteLine("| {0, -3}| {1, -21}| {2, -4}| {3, -11}| {4,-13}| {5, -12}| {6,-8}| {7,-11}| {8,-11}|",
+                nhanvien.IdNhanVien, nhanvien.TenNhanVien, gioitinh[nhanvien.GioiTinh],
+                nhanvien.BirthDay, nhanvien.CCCD,nhanvien.SDT,
+                typeuser[nhanvien.TypeUser],nhanvien.UserName,nhanvien.PassWord);
+            }
+            Console.WriteLine(" ---------------------------------------------------------------------------------------------------------------- ");
+        }
+        
         public void HienThiNhanVien(int choice){
+            List<NhanVien> ListNhanVien = listNhanVien.GetRange(0,listNhanVien.Count);
             while (true)
             {
                 SapXep();
                 if(choice == 1)
-                ShowNhanVien(listNhanVien);
+                ShowNhanVien(ListNhanVien);
                 else
                 ShowNhanVien2();
                 switch (Console.ReadKey(true).Key)
                 {
                     case ConsoleKey.D1:
-                        SapXepTen();
+                        SapXepTen(ListNhanVien);
                         break;
                     case ConsoleKey.D2:
-                        SapXepID();
+                        SapXepID(ListNhanVien);
                         break;
                     case ConsoleKey.D3:
-                        SapXepGioiTinh();
+                        SapXepGioiTinh(ListNhanVien);
+                        break;
+                    case ConsoleKey.D5:
+                        Console.Write("Nhập 1 để lọc nam, 0 để lọc nữ: ");
+                        int gt = generalMethod.inputInt(0,1);
+                        if(gt!=-1){
+                        LocTheoGioiTinh(ListNhanVien,gt);
+                        Console.WriteLine("Nhấn phím bất kỳ để quay lại");
+                        Console.ReadKey(true);
+                        }
+                        break;
+                    case ConsoleKey.D4:
+                        Console.Write("Nhập 1 để lọc admin, 0 để lọc member: ");
+                        int type = generalMethod.inputInt(0,1);
+                        if(type!=-1){
+                        LocTheoTypeUser(ListNhanVien,type);
+                        Console.WriteLine("Nhấn phím bất kỳ để quay lại");
+                        Console.ReadKey(true);
+                        }
+                        break;
+                    case ConsoleKey.D6:
+                        thongKe();
+                        Console.WriteLine("Nhấn phím bất kỳ để quay lại");
+                        Console.ReadKey(true);
                         break;
                     case ConsoleKey.D0:
-                        SapXepID();
                         return;
                 }
             } 
@@ -270,6 +337,100 @@ namespace PersonelManage
             return Xoa;
         }
         private string fileNhanVien = "nhanvien.txt";
+        private (int nam, int nu) countSex(List<NhanVien> listNhanVien)
+        {
+            int soNam = 0;
+            int soNu = 0;
+
+            foreach (NhanVien nhanVien in listNhanVien)
+            {
+                if (nhanVien.GioiTinh == 1) 
+                {
+                    soNam++;
+                }
+                else if (nhanVien.GioiTinh == 0)
+                {
+                    soNu++;
+                }
+            }
+            return (soNam, soNu);
+        }
+        public void thongKe()
+        {
+            Console.WriteLine($"Tổng số Nhân Viên: {listNhanVien.Count}");
+            var kqDemSex = countSex(listNhanVien);
+            Console.WriteLine($"Số nam: {kqDemSex.nam}");
+            Console.WriteLine($"Số nữ: {kqDemSex.nu}");
+            var kqDemUser = countUser(listNhanVien);
+            Console.WriteLine($"Số admin: {kqDemUser.admin}");
+            Console.WriteLine($"Số member: {kqDemUser.member}");
+        }  
+        private (int admin, int member) countUser(List<NhanVien> listNhanVien)
+        {
+            int member = 0;
+            int admin = 0;
+
+            foreach (NhanVien nhanVien in listNhanVien)
+            {
+                if (nhanVien.TypeUser == 1)
+                {
+                    admin++;
+                }
+                else if (nhanVien.TypeUser == 0)
+                {
+                    member++;
+                }
+            }
+
+            return (admin, member);
+        }
+public List<NhanVien> SearchByBirthYear(List<NhanVien> listNhanVien, int keyword)
+{
+    List<NhanVien> KqTimKiem = new List<NhanVien>();
+            //tìm kiếm nhấn viên có tên trùng với keyword đang tìm
+            foreach (NhanVien nv in listNhanVien)
+            {
+               if (nv.BirthDay.Length == 10 && int.Parse(nv.BirthDay.Substring(6)) < keyword)
+               {
+                  KqTimKiem.Add(nv);
+               }
+            }
+            if(KqTimKiem.Count != 0)  
+            return KqTimKiem;
+            else
+            return null;
+}
+public void PrintTimNhanVienByBirthYear()
+{
+    Console.Clear();
+    Console.WriteLine("0. Quay lại");
+    Console.Write(" ----------------------------------------------------- \n" +
+                  "| 1. Tìm nhân viên theo năm sinh                     |\n" +
+                  " ----------------------------------------------------- \n");
+}
+
+public void TimNhanVienTheoNamSinh()
+{
+    Console.Clear();
+    PrintTimNhanVienByBirthYear();
+    switch (Console.ReadKey(true).Key)
+    {
+        case ConsoleKey.D1:
+            Console.Clear();
+            Console.Write("Nhập năm sinh: ");
+            int birthYear = int.Parse(Console.ReadLine());
+            List<NhanVien> nhanVienSinhTruocNam = SearchByBirthYear(listNhanVien, birthYear);
+            if(nhanVienSinhTruocNam != null)
+            ShowNhanVien(nhanVienSinhTruocNam);
+            Console.WriteLine("Nhấn phím bất kỳ để tiếp tục");
+            Console.ReadKey();
+            break;
+        case ConsoleKey.D0:
+            return;
+    }
+}
+
+
         public void getDataNhanVien(){
             //using này để lấy dữ liệu vào cái list. đưa vào try catch để kiểm tra lỗi file
             try

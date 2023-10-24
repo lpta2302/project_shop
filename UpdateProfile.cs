@@ -44,7 +44,7 @@ namespace UpdateProfile
             string pass;
             // tạo biến để lưu tạm lại pass cũ
             string passOld = account.PassWord;
-            //thay đổi pass cũ thành mảng trốn để in cho đẹp
+            //thay đổi pass cũ thành mảng trống để in cho đẹp
             account.PassWord = "";
             printBang(account);
             Console.SetCursorPosition(13, 3);
@@ -52,7 +52,7 @@ namespace UpdateProfile
             pass = generalMethod.inputString(10,passOld);
             if(pass != passOld)
                 return pass;
-            else{
+            else {
                 noti("password phải dưới 10 ký tự");
                 return passOld;
             }
